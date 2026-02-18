@@ -1,0 +1,22 @@
+# Python temporary files
+__pycache__/
+*.pyc
+
+# Environment variables (Secrets!)
+.env
+
+# Virtual environments (if you used one)
+venv/
+env/
+.venv/
+
+# Docker temporary files
+.docker/
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# Temporary scripts we made (Optional, but cleaner to ignore)
+fix_tests.py
+generate_data.py

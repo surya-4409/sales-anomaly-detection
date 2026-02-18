@@ -1,0 +1,12 @@
+{
+  "anomalies": [
+    {
+      "date": "2024-03-15",
+      "description": "Unexpected revenue spike in marketing."
+    },
+    {
+      "date": "2024-06-21",
+      "description": "Significant drop in sales revenue."
+    }
+  ]
+}
