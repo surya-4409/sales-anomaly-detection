@@ -1,21 +1,22 @@
-# 1. Use a lightweight Python base image
+# 1. Base Image
 FROM python:3.9-slim
 
-# 2. Set the working directory inside the container
+# 2. Set Working Directory
 WORKDIR /app
 
-# 3. Copy the requirements file first (for caching)
-COPY requirements.txt .
+# --- CRITICAL FIX: Install curl for Healthcheck ---
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-# 4. Install dependencies
+# 3. Install Dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 5. Copy the rest of the application code
+# 4. Copy Code
 COPY . .
 
-# 6. Expose the ports for API (8000) and Streamlit (8501)
+# 5. Expose Ports (API & UI)
 EXPOSE 8000
 EXPOSE 8501
 
-# 7. Default command (will be overridden by docker-compose)
-CMD ["python", "app/main.py"]
+# 6. Run Command (Start API in background, then Streamlit)
+CMD uvicorn app.main:app --host 0.0.0.0 --port 8000 & streamlit run app/ui.py --server.port 8501 --server.address 0.0.0.0
